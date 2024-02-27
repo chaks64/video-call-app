@@ -12,7 +12,8 @@ import {
 } from "@elastic/eui";
 import { signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseConfig";
-import { changeTheme, setUser } from "../app/slices/auth";
+import { changeTheme } from "../app/slices/auth";
+import { getCreateMeetingBreadcrumbs, getOneOnOneMeetingBreadcrumbs } from "../utils/breadcrums";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,6 +23,15 @@ const Header = () => {
   const [breadCrumbs, setBreadCrums] = useState([{ text: "Dashboard" }]);
   const [isReponsive, setIsResponsive] = useState(false);
   const dispatch = useDispatch();
+
+
+    useEffect(() => {
+      const {pathname} = location;
+      if(pathname === "/create"){
+        setBreadCrums(getCreateMeetingBreadcrumbs(navigate));
+      } else if(pathname === "/create1on1") setBreadCrums(getOneOnOneMeetingBreadcrumbs(navigate));
+    }, [location, navigate])
+    
 
   const logoutHandler = () => {
     // dispatch(setUser({}));
@@ -45,6 +55,47 @@ const Header = () => {
             </h2>
           </EuiText>
         </Link>,
+      ],
+    },
+    {
+      items: [
+        <EuiFlexGroup
+          justifyContent="center"
+          alignItems="center"
+          direction="row"
+          style={{ gap: "2vw" }}
+        >
+          <EuiFlexItem grow={false} style={{ flexBasis: "fit-content" }}>
+            {isDarkTheme ? (
+              <EuiButtonIcon
+                onClick={invertTheme}
+                iconType="sun"
+                display="fill"
+                size="m"
+                color="warning"
+                aria-label="invert-theme-button"
+              />
+            ) : (
+              <EuiButtonIcon
+                onClick={invertTheme}
+                iconType="moon"
+                display="fill"
+                size="m"
+                color="text"
+                aria-label="invert-theme-button"
+              />
+            )}
+          </EuiFlexItem>
+          <EuiFlexItem grow={false} style={{ flexBasis: "fit-content" }}>
+            <EuiButtonIcon
+              onClick={logoutHandler}
+              iconType="lock"
+              display="fill"
+              size="m"
+              aria-label="logout-button"
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>,
       ],
     },
   ];

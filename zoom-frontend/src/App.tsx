@@ -1,18 +1,26 @@
-import { EuiProvider, EuiThemeProvider, EuiThemeColorMode } from "@elastic/eui";
+import {
+  EuiProvider,
+  EuiThemeProvider,
+  EuiThemeColorMode,
+  EuiGlobalToastList,
+} from "@elastic/eui";
 import React, { useEffect, useState } from "react";
-import "@elastic/eui/dist/eui_theme_light.css";
-import "@elastic/eui/dist/eui_theme_dark.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "./app/hooks";
+import ThemeSelector from "./components/ThemeSelector";
+import CreateMeeting from "./Pages/CreateMeeting";
+import OneOnOneMeeting from "./Pages/OneOnOneMeeting";
+import { setToasts } from "./app/slices/meeting/meetingsSlice";
 
 function App() {
   const dispatch = useDispatch();
   const isDarkTheme = useAppSelector((zoom) => zoom.auth.isDarkTheme);
   const [theme, setTheme] = useState<EuiThemeColorMode>("light");
   const [initTheme, setInitTheme] = useState(true);
+  const toast = useAppSelector((zoom) => zoom.meetings.toasts);
 
   useEffect(() => {
     const currTheme = localStorage.getItem("zoom-theme");
@@ -37,16 +45,29 @@ function App() {
     },
   };
 
+  const removeToast = (removeToast: { id: string }) => {
+    dispatch(
+      setToasts(
+        toast.filter((toast: { id: string }) => toast.id !== removeToast.id)
+      )
+    );
+  };
+
   return (
-    <EuiProvider colorMode={theme}>
-      <EuiThemeProvider modify={overRides}>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Dashboard />} />
-          <Route path="*" element={<Dashboard />} />
-        </Routes>
-      </EuiThemeProvider>
-    </EuiProvider>
+    <ThemeSelector>
+      <EuiProvider colorMode={theme}>
+        <EuiThemeProvider modify={overRides}>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="*" element={<Dashboard />} />
+            <Route path="/create" element={<CreateMeeting />} />
+            <Route path="/create1on1" element={<OneOnOneMeeting />} />
+          </Routes>
+          <EuiGlobalToastList toasts={toast} dismissToast={removeToast} toastLifeTimeMs={5000} />
+        </EuiThemeProvider>
+      </EuiProvider>
+    </ThemeSelector>
   );
 }
 
