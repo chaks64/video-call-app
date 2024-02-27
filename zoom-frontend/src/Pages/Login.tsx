@@ -13,7 +13,6 @@ import {
 import { logo, animate, google, github } from "../assests/export";
 import "../App.css";
 import {
-  GithubAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,

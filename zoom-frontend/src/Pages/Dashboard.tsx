@@ -1,5 +1,4 @@
 import React from "react";
-import { useAppSelector } from "../app/hooks";
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { EuiCard, EuiFlexGroup, EuiFlexItem, EuiImage } from "@elastic/eui";
