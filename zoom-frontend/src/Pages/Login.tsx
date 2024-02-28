@@ -40,9 +40,9 @@ const Login: React.FC<Props> = () => {
     const {
       user: { displayName, email, uid },
     } = await signInWithPopup(firebaseAuth, provider);
+    dispatch(setUser({ uid, email: email, name: displayName }));
     checkUser(displayName, email, uid);
     navigate("/");
-    dispatch(setUser({ uid, email: email, name: displayName }));
   };
 
   const checkUser = async (

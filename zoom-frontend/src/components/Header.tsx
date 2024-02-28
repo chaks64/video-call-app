@@ -13,7 +13,7 @@ import {
 import { signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseConfig";
 import { changeTheme } from "../app/slices/auth";
-import { getCreateMeetingBreadcrumbs, getOneOnOneMeetingBreadcrumbs } from "../utils/breadcrums";
+import { getCreateMeetingBreadcrumbs, getMeetingsBreadcrums, getMyMeetingsBreadcrums, getOneOnOneMeetingBreadcrumbs, getVideoConferenceBreadcrumbs } from "../utils/breadcrums";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -30,6 +30,9 @@ const Header = () => {
       if(pathname === "/create"){
         setBreadCrums(getCreateMeetingBreadcrumbs(navigate));
       } else if(pathname === "/create1on1") setBreadCrums(getOneOnOneMeetingBreadcrumbs(navigate));
+      else if(pathname === "/videoconference") setBreadCrums(getVideoConferenceBreadcrumbs(navigate))
+      else if(pathname === "/mymeetings") setBreadCrums(getMyMeetingsBreadcrums(navigate))
+      else if(pathname === "/meetings") setBreadCrums(getMeetingsBreadcrums(navigate))
     }, [location, navigate])
     
 

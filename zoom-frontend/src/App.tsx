@@ -14,6 +14,9 @@ import ThemeSelector from "./components/ThemeSelector";
 import CreateMeeting from "./Pages/CreateMeeting";
 import OneOnOneMeeting from "./Pages/OneOnOneMeeting";
 import { setToasts } from "./app/slices/meeting/meetingsSlice";
+import VideoConference from "./Pages/VideoConference";
+import MyMeetings from "./Pages/MyMeetings";
+import Meetings from "./Pages/Meetings";
 
 function App() {
   const dispatch = useDispatch();
@@ -60,10 +63,13 @@ function App() {
         <EuiThemeProvider modify={overRides}>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<Dashboard />} />
-            <Route path="*" element={<Dashboard />} />
             <Route path="/create" element={<CreateMeeting />} />
             <Route path="/create1on1" element={<OneOnOneMeeting />} />
+            <Route path="/videoconference" element={<VideoConference />} />
+            <Route path="/mymeetings" element={<MyMeetings />} />
+            <Route path="/meetings" element={<Meetings />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="*" element={<Dashboard />} />
           </Routes>
           <EuiGlobalToastList toasts={toast} dismissToast={removeToast} toastLifeTimeMs={5000} />
         </EuiThemeProvider>
