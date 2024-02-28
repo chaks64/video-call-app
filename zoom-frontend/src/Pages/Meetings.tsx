@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MeetingType } from "../utils/Types";
 import { useAppSelector } from "../app/hooks";
-import { getDocs, query, where } from "firebase/firestore";
+import { getDocs, query } from "firebase/firestore";
 import { meetingRef } from "../utils/firebaseConfig";
 import Header from "../components/Header";
 import {

@@ -41,6 +41,7 @@ function MyMeetings() {
 
   useEffect(() => {
     if (userInfo) getMyMeetings();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
 
   const [showFlyout, setShowFlyout] = useState<Boolean>(false);
