@@ -17,6 +17,7 @@ import { setToasts } from "./app/slices/meeting/meetingsSlice";
 import VideoConference from "./Pages/VideoConference";
 import MyMeetings from "./Pages/MyMeetings";
 import Meetings from "./Pages/Meetings";
+import JoinMeeting from "./Pages/JoinMeeting";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function App() {
             <Route path="/videoconference" element={<VideoConference />} />
             <Route path="/mymeetings" element={<MyMeetings />} />
             <Route path="/meetings" element={<Meetings />} />
+            <Route path="/join/:id" element={<JoinMeeting />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="*" element={<Dashboard />} />
           </Routes>
